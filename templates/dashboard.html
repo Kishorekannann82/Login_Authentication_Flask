@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="dashboard-container">
+    <div class="header">
+        <h1>Welcome, {{ username }}!</h1>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
+
+    <div class="video-grid">
+        {% for video in videos %}
+        <div class="video-card">
+            <h2>{{ video.title }}</h2>
+            <iframe width="100%" height="200" src="{{ video.url }}" title="{{ video.title }}" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            <p>{{ video.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
