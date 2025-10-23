@@ -1,4 +1,4 @@
-/* index.scss - Finalized Code for both Login and Dashboard */
+/* index.scss - Finalized Code for both Login and Dashboard with Admin Form Styles */
 
 /* Global Variables */
 $primary-color: #007bff;
@@ -9,6 +9,9 @@ $footer-bg: #2c3e50;
 $dark-text: #333;
 $light-text: #ecf0f1;
 $error-color: #e74c3c;
+$admin-bg: #f0f7ff;
+$admin-border: #cce5ff;
+$success-color: #28a745;
 
 /* === 1. Layout and Global Styles (Applies to Base HTML) === */
 
@@ -34,9 +37,10 @@ body {
     flex: 1; 
 }
 
-/* Default Form Element Styling */
+/* Default Form Element Styling (applies to login inputs AND admin textarea) */
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+textarea { /* ADDED textarea here */
     width: 100%;
     padding: 12px 15px;
     margin: 10px 0;
@@ -44,6 +48,7 @@ input[type="password"] {
     border-radius: 8px;
     font-size: 16px;
     transition: all 0.3s ease;
+    box-sizing: border-box; /* Ensures padding doesn't widen element */
 
     &:focus {
         border-color: $primary-color;
@@ -52,8 +57,10 @@ input[type="password"] {
     }
 }
 
+/* Global button base styles */
 input[type="submit"],
-input[type="button"] {
+input[type="button"],
+button[type="submit"] { /* Targeting all submission elements */
     width: 100%;
     padding: 12px;
     margin-top: 15px;
@@ -65,7 +72,7 @@ input[type="button"] {
     transition: background-color 0.3s ease, transform 0.2s;
 }
 
-/* Button Colors */
+/* Button Colors (Specific to Login/Register) */
 input[value="Login"] {
     background-color: $primary-color;
     color: white;
@@ -78,7 +85,7 @@ input[value="Login"] {
 input[value="Register"] {
     background-color: $secondary-color;
     color: white;
-    margin-top: 10px; /* Space between Login and Register */
+    margin-top: 10px; 
     &:hover {
         background-color: darken($secondary-color, 10%);
         transform: translateY(-2px);
@@ -88,7 +95,6 @@ input[value="Register"] {
 
 /* === 2. Login Page Card UI (Index Page) === */
 
-/* Login Container: Centers the card vertically and horizontally */
 .login-container {
     display: flex;
     align-items: center;
@@ -97,10 +103,9 @@ input[value="Register"] {
     padding: 20px; 
 }
 
-/* The Card Box itself */
 .login-container .container { 
     background-color: #ffffff;
-    width: 400px; /* Defines the card width */
+    width: 400px; 
     max-width: 100%; 
     padding: 40px 30px;
     border-radius: 15px;
@@ -150,7 +155,7 @@ input[value="Register"] {
         }
 
         .logout-btn {
-            background-color: #ff4d4f; /* Red color for logout */
+            background-color: #ff4d4f; 
             color: white;
             text-decoration: none;
             padding: 10px 20px;
@@ -164,6 +169,36 @@ input[value="Register"] {
             }
         }
     }
+    
+    /* ADMIN ADD VIDEO FORM STYLES */
+    .admin-content-section {
+        margin-bottom: 40px; 
+        padding: 25px; 
+        background: $admin-bg; 
+        border-radius: 12px; 
+        border: 1px solid $admin-border;
+        
+        h2 {
+            color: $primary-color;
+            margin-top: 0;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        /* Specific styling for the green submit button in the admin form */
+        button[type="submit"] {
+            background-color: $success-color;
+            color: white;
+            margin-top: 20px;
+
+            &:hover {
+                background-color: darken($success-color, 10%);
+                transform: translateY(-2px);
+            }
+        }
+    }
+    /* END ADMIN ADD VIDEO FORM STYLES */
+
 
     /* Video Grid - 2 videos on desktop, 1 on mobile */
     .video-grid {

@@ -7,9 +7,50 @@
         <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
     </div>
 
+    {% if is_admin %}
+    <div class="admin-content-section" style="margin-bottom: 40px; padding: 25px; background: #f0f7ff; border-radius: 12px; border: 1px solid #cce5ff;">
+        
+        <h2 style="color: #007bff; margin-top: 0; font-size: 24px;">Admin: Content Management</h2>
+
+        <p style="margin-top: 0; margin-bottom: 25px; font-weight: 600;">
+            <a href="{{ url_for('admin_users') }}" style="color: red; text-decoration: none;">
+                ➡️ Manage All User Accounts
+            </a>
+        </p>
+        <hr style="border-top: 1px solid #cce5ff; margin-bottom: 20px;">
+        
+        <h3 style="color: #007bff; font-size: 20px;">Add New Video</h3>
+
+        <form action="{{ url_for('add_video') }}" method="POST">
+            <input type="text" name="title" placeholder="Video Title" required>
+            <input type="text" name="url" placeholder="YouTube Embed URL (e.g., https://www.youtube.com/embed/XXXXX)" required>
+            
+            <textarea name="description" placeholder="Description (optional)" rows="3" 
+                style="width: 100%; padding: 12px 15px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; box-sizing: border-box;"></textarea>
+            
+            <button type="submit" 
+                style="width: 100%; padding: 12px; margin-top: 15px; background-color: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 500; transition: background-color 0.3s ease;">
+                Add Video to Library
+            </button>
+        </form>
+    </div>
+    {% endif %}
+    <h3>Video Library (Total Videos: {{ videos|length }})</h3>
+    
     <div class="video-grid">
         {% for video in videos %}
         <div class="video-card">
+            
+            {% if is_admin %}
+            <form action="{{ url_for('delete_video', video_id=video.id) }}" method="POST" 
+                  onsubmit="return confirm('Are you sure you want to delete the video: {{ video.title }}?');" 
+                  style="text-align: right; margin-bottom: 10px;">
+                <button type="submit" class="delete-btn" 
+                        style="background-color: #ff4d4f; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 14px; transition: background-color 0.2s;">
+                    Delete
+                </button>
+            </form>
+            {% endif %}
             <h2>{{ video.title }}</h2>
             <iframe width="100%" height="200" src="{{ video.url }}" title="{{ video.title }}" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

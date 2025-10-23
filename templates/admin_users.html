@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="dashboard-container">
+    <div class="header">
+        <h1 style="color: #c0392b;">Admin Panel: All Registered Users</h1>
+        <a href="{{ url_for('dashboard') }}" class="logout-btn" style="background-color: #007bff;">Back to Dashboard</a>
+    </div>
+
+    <h3>Total Users: {{ users|length }}</h3>
+
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email (Username)</th>
+                <th>Account Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>
+                    {% if user.username == 'admin@kishorelytics.com' %}
+                        <span style="color: red; font-weight: bold;">ADMIN</span>
+                    {% else %}
+                        Active
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    /* Admin Table Styling (You can add this to your SCSS for a cleaner look) */
+    .user-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: white;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .user-table th, .user-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+    .user-table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        color: #333;
+    }
+    .user-table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+{% endblock %}
